@@ -28,7 +28,7 @@ const Portfolio = () => {
       subtitle: "What is my mission?",
       image: <TbBulb />,
       details: [
-        "Create intuitive and visually appealing user interfaces that enhance user experience and drive business growth through thoughtful design decisions.",
+        "Semilore’s mission is to promote good governance and economic empowerment by ensuring communities have access to transparent leadership and meaningful employment. She strives to design solutions that are sustainable, inclusive, and aligned with Africa’s development goals. Through intentional learning, service, and leadership, she aims to be a changemaker, shaping a better future for all.",
       ],
     },
     {
@@ -36,7 +36,7 @@ const Portfolio = () => {
       subtitle: "Find what I am interested in",
       image: <LuBookOpenCheck />,
       details: [
-        "Enthusiastic about clean code, modern JavaScript frameworks, and creating smooth user interactions with optimal performance.",
+        "Beyond her professional pursuits, Semilore enjoys exploring new ideas, reflecting through writing, and engaging in community conversations. She's passionate about leadership, innovation, food, and cultural discovery. Whether diving into strategy or simply connecting with peers, she thrives on meaningful interaction and purposeful work. Her curiosity drives her to continuously grow, adapt, and contribute positively wherever she finds herself.",
       ],
     },
     {
@@ -44,7 +44,7 @@ const Portfolio = () => {
       subtitle: "Know my goal",
       image: <GiStairsGoal />,
       details: [
-        "To create mobile applications that achieve high user retention, positive reviews, and drive business success.",
+        "To design impactful digital products that solve real-world problems in Africa, empower communities, and bridge the gap between technology and meaningful user experiences. I aim to combine design thinking with entrepreneurial leadership to drive innovation and inclusive growth across the continent.",
       ],
     },
   ];
@@ -287,7 +287,7 @@ const Portfolio = () => {
         </div>
 
         {/* Company Logos */}
-        <div className="grid grid-cols-2 md:flex items-center justify-center md:justify-between px-4 md:px-24 md:space-x-8 py-4 bg-gray-800 rounded-lg mb-0 md:mb-16 md:mx-16">
+        <div className="grid grid-cols-2 mt-2 md:flex items-center justify-center md:justify-between px-4 md:px-24 md:space-x-8 py-4 bg-gray-800 rounded-lg mb-0 md:mb-16 md:mx-16">
           <a
             href="https://docs.google.com/document/d/1BOAKGK6SpTtIuFByQGyZoF2an6NicbsnB8SZq_uvY20/edit?usp=sharing"
             target="_blank"
