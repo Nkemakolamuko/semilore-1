@@ -9,7 +9,36 @@ import {
   Twitter,
   Instagram,
   Facebook,
+  Loader2,
 } from "lucide-react";
+
+// Mock toast function since we can't import react-hot-toast in this environment
+// In your actual project, replace this with: import toast from 'react-hot-toast';
+const toast = {
+  success: (message) => {
+    // Create a temporary toast notification
+    const toastEl = document.createElement("div");
+    toastEl.className =
+      "fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300";
+    toastEl.textContent = message;
+    document.body.appendChild(toastEl);
+    setTimeout(() => {
+      toastEl.style.opacity = "0";
+      setTimeout(() => document.body.removeChild(toastEl), 300);
+    }, 3000);
+  },
+  error: (message) => {
+    const toastEl = document.createElement("div");
+    toastEl.className =
+      "fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300";
+    toastEl.textContent = message;
+    document.body.appendChild(toastEl);
+    setTimeout(() => {
+      toastEl.style.opacity = "0";
+      setTimeout(() => document.body.removeChild(toastEl), 300);
+    }, 3000);
+  },
+};
 
 export default function ContactFooterSection() {
   const [formData, setFormData] = useState({
@@ -18,6 +47,7 @@ export default function ContactFooterSection() {
     subject: "",
     message: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -26,12 +56,38 @@ export default function ContactFooterSection() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
-    alert("Thank you for your message! I'll get back to you soon.");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xanogdyg", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success(
+          "🎉 Message sent successfully! I'll get back to you soon."
+        );
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      toast.error("❌ Failed to send message. Please try again.");
+      console.error("Form submission error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -93,7 +149,7 @@ export default function ContactFooterSection() {
             {/* Contact Form */}
             <div className="bg-gray-800 p-4 md:p-8 rounded-2xl">
               <h3 className="text-2xl font-bold mb-6">Send me a message</h3>
-              <div className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <input
@@ -102,7 +158,9 @@ export default function ContactFooterSection() {
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="Your Name"
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors"
+                      required
+                      disabled={isLoading}
+                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                   </div>
                   <div>
@@ -112,7 +170,9 @@ export default function ContactFooterSection() {
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="Your Email"
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors"
+                      required
+                      disabled={isLoading}
+                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                   </div>
                 </div>
@@ -124,7 +184,9 @@ export default function ContactFooterSection() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     placeholder="Subject"
-                    className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors"
+                    required
+                    disabled={isLoading}
+                    className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </div>
 
@@ -135,18 +197,30 @@ export default function ContactFooterSection() {
                     onChange={handleInputChange}
                     placeholder="Your Message"
                     rows="5"
-                    className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors resize-none"
+                    required
+                    disabled={isLoading}
+                    className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                   ></textarea>
                 </div>
 
                 <button
-                  onClick={handleSubmit}
-                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center space-x-2"
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full cursor-pointer bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-yellow-400"
                 >
-                  <Send className="w-5 h-5" />
-                  <span>Send Message</span>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5" />
+                      <span>Send Message</span>
+                    </>
+                  )}
                 </button>
-              </div>
+              </form>
             </div>
           </div>
         </div>
@@ -164,7 +238,7 @@ export default function ContactFooterSection() {
               <p className="text-gray-400 mb-6 leading-relaxed">
                 A passionate college student who provides services for digital
                 programming and design content needs. I have been working on
-                programming for more than 2 years of experience.
+                product management for more than 2 years of experience.
               </p>
 
               {/* Social Links */}
@@ -176,8 +250,7 @@ export default function ContactFooterSection() {
                   <Facebook className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://www.linkedin.com/in/nwachukwu-oluwasemilore-72a9b7256
-"
+                  href="https://www.linkedin.com/in/nwachukwu-oluwasemilore-72a9b7256"
                   className="bg-gray-700 hover:bg-yellow-400 hover:text-gray-900 p-3 rounded-lg transition-colors"
                 >
                   <Linkedin className="w-5 h-5" />
@@ -189,7 +262,7 @@ export default function ContactFooterSection() {
                   <Twitter className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/semii_loree/profilecard/?igsh=cXA5Y3JqdmxwMmp3"
                   className="bg-gray-700 hover:bg-yellow-400 hover:text-gray-900 p-3 rounded-lg transition-colors"
                 >
                   <Instagram className="w-5 h-5" />
@@ -290,20 +363,6 @@ export default function ContactFooterSection() {
               © {new Date().getFullYear()} Nwachukwu Semilore. <br /> All rights
               reserved.
             </p>
-            {/* <div className="flex space-x-6 mt-4 md:mt-0">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-yellow-400 text-sm transition-colors"
-              >
-                Terms of Service
-              </a>
-            </div> */}
           </div>
         </div>
       </footer>

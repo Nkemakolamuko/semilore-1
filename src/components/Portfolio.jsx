@@ -17,6 +17,8 @@ import {
   Instagram,
   Facebook,
 } from "lucide-react";
+import semi from "../assets/semi.jpeg";
+import WorkLinks from "./WorkLinks";
 
 const Portfolio = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -96,7 +98,7 @@ const Portfolio = () => {
             Home
           </a>
           <a href="#achi" className="hover:text-yellow-500 transition-colors">
-            Achievements
+            Artefacts
           </a>
           <a
             href="#mission"
@@ -105,10 +107,10 @@ const Portfolio = () => {
             Mission
           </a>
           <a
-            href="#service"
+            href="#timeline"
             className="hover:text-yellow-500 transition-colors"
           >
-            Services
+            Timeline
           </a>
           <a href="#skills" className="hover:text-yellow-500 transition-colors">
             Skills
@@ -117,35 +119,22 @@ const Portfolio = () => {
 
         {/* Social Links & Mobile Menu */}
         <div className="flex items-center space-x-4">
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="flex items-center">
             <a
-              href="#"
+              href="https://docs.google.com/document/d/1BOAKGK6SpTtIuFByQGyZoF2an6NicbsnB8SZq_uvY20/edit?usp=sharing"
+              target="_blank"
               className="text-gray-400 hover:text-yellow-500 transition-colors"
             >
-              <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center">
-                📧
+              <div className="rounded-xl bg-yellow-400 text-gray-800 hover:text-white hover:bg-yellow-600 transition-all font-semibold flex items-center justify-center px-4 md:px-16 py-2 md:py-2">
+                MY RESUME 💼
               </div>
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-yellow-500 transition-colors"
-            >
-              <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center">
-                💼
-              </div>
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-yellow-500 transition-colors"
-            >
-              <Menu size={20} />
             </a>
           </div>
           <button
             className="md:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
           </button>
         </div>
       </nav>
@@ -182,7 +171,7 @@ const Portfolio = () => {
                   href="#achi"
                   className="hover:text-yellow-500 transition-colors"
                 >
-                  Achievements
+                  Artefacts
                 </a>
                 <a
                   href="#mission"
@@ -191,10 +180,10 @@ const Portfolio = () => {
                   Mission
                 </a>
                 <a
-                  href="#service"
+                  href="#timeline"
                   className="hover:text-yellow-500 transition-colors"
                 >
-                  Services
+                  Timeline
                 </a>
                 <a
                   href="#skills"
@@ -251,7 +240,7 @@ const Portfolio = () => {
                   <Facebook className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/nwachukwu-oluwasemilore-72a9b7256"
                   className="bg-yellow-500 md:bg-gray-700 md:hover:bg-yellow-400 text-gray-900 md:text-white md:hover:text-gray-900 p-3 rounded-lg transition-colors"
                 >
                   <Linkedin className="w-5 h-5" />
@@ -263,7 +252,7 @@ const Portfolio = () => {
                   <Twitter className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/semii_loree/profilecard/?igsh=cXA5Y3JqdmxwMmp3"
                   className="bg-yellow-500 md:bg-gray-700 md:hover:bg-yellow-400 text-gray-900 md:text-white md:hover:text-gray-900 p-3 rounded-lg transition-colors"
                 >
                   <Instagram className="w-5 h-5" />
@@ -273,12 +262,17 @@ const Portfolio = () => {
           </div>
 
           {/* Profile Image */}
-          <div className="flex justify-center lg:justify-end">
+          <div className="flex justify-center md:justify-end md:mr-12">
             <div className="relative">
-              <div className="w-80 h-96 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-end justify-center overflow-hidden">
-                <div className="w-full h-full flex items-end justify-center pb-8">
-                  <div className="w-48 h-64 bg-blue-800 rounded-t-full flex items-end justify-center">
-                    <div className="text-6xl mb-4">👨‍💻</div>
+              <div className="w-90 h-110 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-end justify-center overflow-hidden">
+                <div className="w-full h-full flex items-end justify-center">
+                  <div className="w-[90%] h-[95%] bg-blue-800 rounded-t-full flex overflow-hidden justify-center">
+                    {/* <div className="text-6xl mb-4">👨‍💻</div> */}
+                    <img
+                      src={semi}
+                      alt="Semilore"
+                      className="w-full h-full hover:scale-105 transition-all duration-300"
+                    />
                   </div>
                 </div>
               </div>
@@ -286,55 +280,9 @@ const Portfolio = () => {
           </div>
         </div>
 
-        {/* Company Logos */}
-        <div className="grid grid-cols-2 mt-2 md:flex items-center justify-center md:justify-between px-4 md:px-24 md:space-x-8 py-4 bg-gray-800 rounded-lg mb-0 md:mb-16 md:mx-16">
-          <a
-            href="https://docs.google.com/document/d/1BOAKGK6SpTtIuFByQGyZoF2an6NicbsnB8SZq_uvY20/edit?usp=sharing"
-            target="_blank"
-            className="flex items-center space-x-2 bg-gray-900 py-4 px-8 border md:border-0 rounded hover:bg-[#1650EA] transition-all duration-150"
-          >
-            {/* <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
-              <span className="text-white font-bold text-xs">M</span>
-              <img
-                src={mastercardLogo}
-                className="min-w-8 min-h-8"
-                alt="Mastercard"
-              />
-            </div> */}
-            <span className="text-white font-medium">Resume</span>
-          </a>
-          <a
-            href="https://docs.google.com/document/d/1smCY-K3U7WfnZpubuZE23llQ7ZWMsw1vHTtMu7UAHno/edit?usp=sharing"
-            target="_blank"
-            className="flex items-center space-x-2 bg-gray-900 py-4 px-4 border md:border-0 rounded hover:bg-[#1650EA] transition-all duration-150"
-          >
-            {/* <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
-              <span className="text-white font-bold text-xs">G</span>
-              <img src={googleLogo} className="min-w-8 min-h-8" alt="Google" />
-            </div> */}
-            <span className="text-white font-medium">Reflection Essay</span>
-          </a>
-          <a
-            href="https://docs.google.com/document/d/1tBABVUM0J3DmSPqoioOGNMNmi2p88LqWZObIpIUJJz8/edit?usp=sharing"
-            target="_blank"
-            className="flex items-center space-x-2 bg-gray-900 py-4 px-8 border md:border-0 rounded hover:bg-[#1650EA] transition-all duration-150"
-          >
-            {/* <div className="w-8 h-8 bg-blue-700 rounded flex items-center justify-center">
-              <span className="text-white font-bold text-xs">in</span>
-            </div> */}
-            <span className="text-white font-medium">Artefact 1</span>
-          </a>
-          <a
-            href="https://docs.google.com/document/d/1XfFoTIujUm5q6Zz8NgPIpCR3Se1AF4MfmgJW0o8t4WA/edit?usp=sharing"
-            target="_blank"
-            className="flex items-center space-x-2 bg-gray-900 py-4 px-8 border md:border-0 rounded hover:bg-[#1650EA] transition-all duration-150"
-          >
-            {/* <div className="w-8 h-8 bg-purple-600 rounded flex items-center justify-center">
-              <span className="text-white font-bold text-xs">#</span>
-            </div> */}
-            <span className="text-white font-medium">Artefact 2</span>
-          </a>
-        </div>
+        {/* Artefacts Logos */}
+
+        <WorkLinks />
 
         {/* Services Section */}
         <div className="py-8 md:py-16" id="achi">
@@ -443,10 +391,10 @@ const Portfolio = () => {
                 <p className="text-gray-400 mb-6 leading-relaxed">
                   {skill.description}
                 </p>
-                <button className="text-yellow-500 hover:text-yellow-400 transition-colors flex items-center space-x-2 group-hover:translate-x-1">
+                {/* <button className="text-yellow-500 hover:text-yellow-400 transition-colors flex items-center space-x-2 group-hover:translate-x-1">
                   <span>View Work</span>
                   <ArrowRight size={16} />
-                </button>
+                </button> */}
               </div>
             ))}
           </div>
